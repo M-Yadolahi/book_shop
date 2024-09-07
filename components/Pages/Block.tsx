@@ -6,6 +6,7 @@ export default (props) => {
     props.state.cart = [];
   }
 
+
   return (
     <c-x
       onClick={() => {

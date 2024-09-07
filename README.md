@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ## This is a uservice project from Turing Research Team.
+=======
+This is a uservice project from Turing Research Team.
+>>>>>>> 25c86cc ( commit)
 <img src="https://github.com/ArminKardan/utrialv2/blob/master/turing.png?raw=true"/>
 ## Getting Started
 
@@ -24,6 +28,7 @@ Best regards.
 <img src="https://github.com/ArminKardan/utrialv2/blob/master/heart.png?raw=true" />
 <br/>
 <br/>
+<<<<<<< HEAD
 
 
 ## Touring Team 
@@ -31,3 +36,5 @@ Best regards.
 I developed this project with the invaluable help of Touring Team.
 
 thanks to Team leader [Armin Kardan](https://github.com/ArminKardan) 
+=======
+>>>>>>> 25c86cc ( commit)
