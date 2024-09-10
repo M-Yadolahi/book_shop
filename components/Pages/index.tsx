@@ -28,24 +28,28 @@ const Page: PageEl = (
   refresh,
   getProps
 ) => {
+  getProps(async () => {
+    let cart = localStorage.getItem("cart")
+    if(cart){
+      state.cart = JSON.parse(cart)
+    }
+  });
   let styles = global.styles;
   let name = "خوش آمدید";
   let name2 = "books cart";
 
   let total_price = 0;
 
- 
-    if (!state.cart) {
-      state.cart = [];
-    }
+  if (!state.cart) {
+    state.cart = [];
+  }
 
-    for (let title of state.cart) {
-      let book = props.books.find(b => b.title == title);
-      if (book) {
-        total_price += book.price * 0.9;
-      }
+  for (let title of state.cart) {
+    let book = props.books.find((b) => b.title == title);
+    if (book) {
+      total_price += book.price * 0.9;
     }
-  
+  }
 
   return (
     <div style={{ direction: "rtl", minHeight: "11vh" }}>
@@ -100,10 +104,12 @@ const Page: PageEl = (
                 state.cart = state.cart.filter(
                   (bookname) => state.book.title != bookname
                 );
+                localStorage.setItem("cart", JSON.stringify(state.cart));
                 state.form = null;
                 refresh();
               } else {
                 state.cart.push(state.book.title);
+                localStorage.setItem("cart", JSON.stringify(state.cart));
                 state.form = null;
                 refresh();
               }
@@ -118,13 +124,72 @@ const Page: PageEl = (
         </WindowFloat>
       ) : null}
 
+      {/* <Window title="test">
+        <f-cc style={{ width: "100%", height: 200 }}>
+          <g-b
+            style={{ backgroundColor: "lime", maxWidth: 200 }}
+            onClick={() => {
+              localStorage.setItem("cart", JSON.stringify(state.cart));
+            }}
+          >
+            <f-13>save</f-13>
+          </g-b>
+          <sp-1 />
+          <sp-1 />
+          <g-b
+            style={{ backgroundColor: "lime", maxWidth: 200 }}
+            onClick={() => {
+              let u = localStorage.getItem("cart");
+              alert(u);
+            }}
+          >
+            <f-13>read</f-13>
+          </g-b>
+          <sp-1 />
+          <sp-1 />
+          <g-b
+            style={{ backgroundColor: "lime", maxWidth: 200 }}
+            onClick={() => {
+              let u = localStorage.removeItem("cart");
+              alert(u);
+            }}
+          >
+            <f-13>remove</f-13>
+          </g-b>
+        </f-cc>
+      </Window> */}
+
       <Window
         title={name2}
         style={{ minHeight: 200, margin: 10, width: "calc(100% - 20px)" }}
       >
-        <f-cse style={{ width: "100%", height:150}}>
-          <f-20 style={{alignContent:"center",textAlign:"center",backgroundColor:"silver",width:200,height:30,borderRadius:10,boxShadow:"10px"}}>total price : {total_price}</f-20>
-          <f-20 style={{alignContent:"center",textAlign:"center",backgroundColor:"silver",width:200,height:30,borderRadius:10,boxShadow:"10px"}}>total books: {state.cart.length}</f-20>
+        <f-cse style={{ width: "100%", height: 150 }}>
+          <f-20
+            style={{
+              alignContent: "center",
+              textAlign: "center",
+              backgroundColor: "silver",
+              width: 200,
+              height: 30,
+              borderRadius: 10,
+              boxShadow: "10px",
+            }}
+          >
+            total price : {total_price}
+          </f-20>
+          <f-20
+            style={{
+              alignContent: "center",
+              textAlign: "center",
+              backgroundColor: "silver",
+              width: 200,
+              height: 30,
+              borderRadius: 10,
+              boxShadow: "10px",
+            }}
+          >
+            total books: {state.cart.length}
+          </f-20>
         </f-cse>
       </Window>
 
