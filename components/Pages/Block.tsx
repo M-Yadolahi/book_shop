@@ -6,6 +6,7 @@ export default (props) => {
     props.state.cart = [];
   }
 
+  
 
   return (
     <c-x
@@ -43,7 +44,7 @@ export default (props) => {
         <f-csb style={{ width: "100%" }}>
           {props.state.cart.includes(props.book.title) ? (
             <img
-              src="https://cdn.turing.team/research/33/checked.png"
+              src="https://cdn.ituring.ir/research/33/checked.png"
               alt=""
               style={{
                 objectFit: "contain",
@@ -54,7 +55,7 @@ export default (props) => {
             />
           ) : (
             <img
-              src="https://cdn.turing.team/research/33/trolley.png"
+              src="https://cdn.ituring.ir/research/33/trolley.png"
               style={{
                 objectFit: "contain",
                 height: 20,
