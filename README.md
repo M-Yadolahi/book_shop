@@ -1,5 +1,5 @@
-<<<<<<< HEAD
 ## This is a uservice project from Turing Research Team.
+<img src="https://github.com/ArminKardan/utrialv2/blob/master/turing.png?raw=true"/>
 =======
 This is a uservice project from Turing Research Team.
 >>>>>>> 25c86cc ( commit)
@@ -21,14 +21,17 @@ Open [https://xtal.ir/userv](https://xtal.ir/userv) with your browser to see the
 You can start editing the page by modifying `components/Pages/index.tsx`. The page auto-updates as you edit the file.
 <br/>
 <br/>
-<img src="https://github.com/ArminKardan/utrialv2/blob/master/screen.webp?raw=true" />
+<img src="https://cdn.ituring.ir/research/33/book1.png" />
 <br/>
-Best regards.
+add (buy)
 <br/>
-<img src="https://github.com/ArminKardan/utrialv2/blob/master/heart.png?raw=true" />
+<img src="https://cdn.ituring.ir/research/33/book2.png" />
 <br/>
+remove from card
 <br/>
-<<<<<<< HEAD
+<img src="https://cdn.ituring.ir/research/33/book3.png" />
+<br/>
+
 
 
 ## Touring Team 
@@ -36,5 +39,4 @@ Best regards.
 I developed this project with the invaluable help of Touring Team.
 
 thanks to Team leader [Armin Kardan](https://github.com/ArminKardan) 
-=======
->>>>>>> 25c86cc ( commit)
+
