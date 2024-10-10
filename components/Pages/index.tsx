@@ -10,6 +10,7 @@ import "./css.module.css";
 import Block from "./Block";
 
 export default (p) => Component(p, Page);
+
 const Page: PageEl = (
   props,
   state: {
@@ -29,15 +30,15 @@ const Page: PageEl = (
   getProps
 ) => {
   getProps(async () => {
-    let cart = localStorage.getItem("cart")
-    if(cart){
-      state.cart = JSON.parse(cart)
+    let cart = localStorage.getItem("cart");
+    if (cart) {
+      state.cart = JSON.parse(cart);
     }
   });
+  
   let styles = global.styles;
   let name = "خوش آمدید";
   let name2 = "books cart";
-
   let total_price = 0;
 
   if (!state.cart) {
@@ -48,6 +49,23 @@ const Page: PageEl = (
     let book = props.books.find((b) => b.title == title);
     if (book) {
       total_price += book.price * 0.9;
+    }
+  }
+
+  // Function to send cart data to backend API
+  async function addToCart(cart) {
+    const res = await fetch("/api/addtocart", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ cart }),
+    });
+    
+    if (res.ok) {
+      console.log("Cart data sent to backend");
+    } else {
+      console.error("Failed to send cart data");
     }
   }
 
@@ -68,25 +86,21 @@ const Page: PageEl = (
             <sp-2 />
             <f-15>{state.book.title}</f-15>
           </f-c>
-
           <f-c>
             <f-15>author: </f-15>
             <sp-2 />
             <f-15>{state.book.author}</f-15>
           </f-c>
-
           <f-c>
             <f-15>country: </f-15>
             <sp-2 />
             <f-15>{state.book.country}</f-15>
           </f-c>
-
           <f-c>
             <f-15>language: </f-15>
             <sp-2 />
             <f-15>{state.book.language}</f-15>
           </f-c>
-
           <f-c>
             <f-15>pages: </f-15>
             <sp-2 />
@@ -104,15 +118,13 @@ const Page: PageEl = (
                 state.cart = state.cart.filter(
                   (bookname) => state.book.title != bookname
                 );
-                localStorage.setItem("cart", JSON.stringify(state.cart));
-                state.form = null;
-                refresh();
               } else {
                 state.cart.push(state.book.title);
-                localStorage.setItem("cart", JSON.stringify(state.cart));
-                state.form = null;
-                refresh();
               }
+              localStorage.setItem("cart", JSON.stringify(state.cart));
+              addToCart(state.cart); // Call API to send cart data
+              state.form = null;
+              refresh();
             }}
           >
             {state.cart.includes(state.book.title) ? (
@@ -123,41 +135,6 @@ const Page: PageEl = (
           </g-b>
         </WindowFloat>
       ) : null}
-
-      {/* <Window title="test">
-        <f-cc style={{ width: "100%", height: 200 }}>
-          <g-b
-            style={{ backgroundColor: "lime", maxWidth: 200 }}
-            onClick={() => {
-              localStorage.setItem("cart", JSON.stringify(state.cart));
-            }}
-          >
-            <f-13>save</f-13>
-          </g-b>
-          <sp-1 />
-          <sp-1 />
-          <g-b
-            style={{ backgroundColor: "lime", maxWidth: 200 }}
-            onClick={() => {
-              let u = localStorage.getItem("cart");
-              alert(u);
-            }}
-          >
-            <f-13>read</f-13>
-          </g-b>
-          <sp-1 />
-          <sp-1 />
-          <g-b
-            style={{ backgroundColor: "lime", maxWidth: 200 }}
-            onClick={() => {
-              let u = localStorage.removeItem("cart");
-              alert(u);
-            }}
-          >
-            <f-13>remove</f-13>
-          </g-b>
-        </f-cc>
-      </Window> */}
 
       <Window
         title={name2}
@@ -209,29 +186,6 @@ const Page: PageEl = (
 
 export async function getServerSideProps(context) {
   var session = await global.SSRVerify(context);
-  var {
-    uid,
-    name,
-    image,
-    imageprop,
-    lang,
-    cchar,
-    unit,
-    workspace,
-    servid,
-    servsecret,
-    usedquota,
-    quota,
-    quotaunit,
-    status,
-    regdate,
-    expid,
-    role,
-    path,
-    devmod,
-    userip,
-  } = session;
-
   let books = await global.db.collection("books").find({}).toArray();
 
   for (let book of books) {
@@ -244,7 +198,6 @@ export async function getServerSideProps(context) {
       data: global.QSON.stringify({
         session,
         books,
-        // nlangs,
       }),
     },
   };
